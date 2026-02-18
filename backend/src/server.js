@@ -13,8 +13,6 @@ const app = express();
 
 connectDB();
 
-const cors = require("cors");
-
 const allowedOrigins = [
   "http://localhost:5173",
   "https://managelibrary.vercel.app"
@@ -31,6 +29,8 @@ app.use(cors({
   credentials: true
 }));
 
+app.options("*", cors());   // ⭐ FIX FOR PREFLIGHT
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
@@ -38,7 +38,6 @@ app.use("/api/membership", membershipRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/reports", reportRoutes);
-
 
 app.get("/", (req, res) => {
   res.send("Library Management System API Running");
