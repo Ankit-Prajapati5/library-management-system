@@ -1,82 +1,127 @@
+/* ================= RESET ================= */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-img, input, button {
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --border: #dcdfe6;
+  --text: #1e293b;
+  --bg: #f4f7fb;
+  --error: #e11d48;
+}
+
+img, input, button, select, textarea {
   max-width: 100%;
   font-family: inherit;
 }
 
+/* ================= PAGE ================= */
 .return-page {
   min-height: 100vh;
-  background: #f4f7fb;
+  background: var(--bg);
   padding: 40px 20px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* ================= CARD ================= */
 .return-card {
   width: 100%;
-  max-width: 500px;
-  margin: 20px auto;
-  background: white;
+  max-width: 520px;
+  margin: auto;
+  background: #fff;
   padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  border-radius: 14px;
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.06),
+    0 2px 8px rgba(0,0,0,0.04);
+  transition: transform .2s ease;
+}
+
+.return-card:hover {
+  transform: translateY(-2px);
 }
 
 .return-title {
-  margin-bottom: 20px;
-  color: #1e293b;
+  margin-bottom: 22px;
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: .3px;
 }
 
+/* ================= FORM ================= */
 .form-group {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .form-group input {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #dcdfe6;
+  padding: 13px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
   outline: none;
-  transition: 0.25s;
+  transition: all .2s ease;
   font-size: 16px;
+  background: #fff;
 }
 
+/* focus */
 .form-group input:focus {
-  border-color: #4a7dff;
-  box-shadow: 0 0 0 2px rgba(74,125,255,0.15);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
 }
 
+/* press feedback (mobile feel) */
+.form-group input:active {
+  transform: scale(.995);
+}
+
+/* ================= BUTTON ================= */
 .submit-btn {
-  margin-top: 10px;
+  margin-top: 18px;
   width: 100%;
-  padding: 13px;
+  padding: 14px;
   border: none;
-  border-radius: 8px;
-  background: #2563eb;
+  border-radius: 10px;
+  background: var(--primary);
   color: white;
   cursor: pointer;
-  transition: 0.25s;
+  transition: all .25s ease;
+  font-weight: 600;
+  letter-spacing: .3px;
 }
 
-.submit-btn:hover { background: #1d4ed8; }
+.submit-btn:hover {
+  background: var(--primary-dark);
+}
 
-.error { color: #e11d48; font-size: 13px; }
+.submit-btn:active {
+  transform: scale(.98);
+}
 
+/* ================= ERROR ================= */
+.error {
+  color: var(--error);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
+
   .return-page {
-    padding: 25px 15px;
+    padding: 24px 14px;
   }
 
   .return-card {
-    padding: 22px;
-    border-radius: 10px;
+    padding: 24px;
+    border-radius: 12px;
   }
 
   .return-title {
@@ -86,29 +131,76 @@ img, input, button {
 }
 
 @media (max-width: 480px) {
+
   .return-page {
-    padding: 15px 10px;
+    padding: 12px;
     align-items: flex-start;
   }
 
   .return-card {
-    padding: 18px;
-    border-radius: 8px;
-    box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 14px rgba(0,0,0,.06);
   }
 
   .return-title {
     font-size: 20px;
     text-align: center;
   }
+
+  .submit-btn {
+    padding: 15px;
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 360px) {
+
   .return-card {
-    padding: 15px;
+    padding: 16px;
   }
 
   .return-title {
     font-size: 18px;
   }
+
+  .submit-btn {
+    font-size: 14px;
+  }
+}
+
+/* ================= MOBILE INPUT FIX ================= */
+
+/* prevent iOS zoom */
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* show calendar icon */
+input[type="date"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  background: #fff;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  cursor: pointer;
+}
+.fine-box {
+  margin-bottom: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.fine-box.due {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.fine-box.clear {
+  background: #dcfce7;
+  color: #166534;
 }

@@ -29,6 +29,7 @@ function App() {
       {/* Public */}
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/payfine" element={<PayFine />} />
 
       {/* Protected */}
       <Route element={<ProtectedRoute />}>
@@ -54,6 +55,8 @@ function App() {
         <Route path="/reports/active" element={<ActiveIssuesReport />} />
         <Route path="/reports/overdue" element={<OverdueReport />} />
         <Route path="/reports/all-issues" element={<AllIssuesReport />} />
+
+        
       </Route>
 
     </Routes>

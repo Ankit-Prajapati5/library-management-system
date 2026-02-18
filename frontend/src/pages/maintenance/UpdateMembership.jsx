@@ -3,14 +3,16 @@ import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import "../../css/UpdateMembership.css";
 
-/* VALIDATION */
+/* ================= VALIDATION ================= */
 const validate = (membershipId) => {
   const errors = {};
 
   if (!membershipId)
     errors.membershipId = "Membership ID required";
-  else if (!/^[0-9]+$/.test(membershipId))
-    errors.membershipId = "Only numbers allowed";
+
+  // Allow: letters + numbers + underscore + hyphen
+  else if (!/^[a-zA-Z0-9_-]+$/.test(membershipId))
+    errors.membershipId = "Only letters, numbers, _ and - allowed";
 
   return errors;
 };
@@ -23,6 +25,7 @@ function UpdateMembership() {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState({});
 
+  /* ================= SUBMIT ================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -33,10 +36,15 @@ function UpdateMembership() {
     if (Object.keys(validationErrors).length > 0) return;
 
     try {
-      await API.put("/membership/update", { membershipId, action });
+      await API.put("/membership/update", {
+        membershipId,
+        action
+      });
+
       setSuccess(true);
       setMessage("Membership updated successfully");
       setMembershipId("");
+
     } catch (err) {
       setSuccess(false);
       setMessage(err.response?.data?.message || "Error updating membership");
@@ -60,19 +68,27 @@ function UpdateMembership() {
 
           <form onSubmit={handleSubmit}>
 
+            {/* Membership ID */}
             <div className="form-group">
               <input
                 value={membershipId}
-                placeholder="Membership ID"
-                onChange={(e)=>{
-                  if(/^\d*$/.test(e.target.value))
-                    setMembershipId(e.target.value);
+                placeholder="Membership ID (e.g. LIB-001)"
+                onChange={(e) => {
+                  const value = e.target.value;
+
+                  // Allow alphanumeric + _ -
+                  if (/^[a-zA-Z0-9_-]*$/.test(value))
+                    setMembershipId(value);
                 }}
               />
-              {errors.membershipId && <p className="error">{errors.membershipId}</p>}
+              {errors.membershipId && (
+                <p className="error">{errors.membershipId}</p>
+              )}
             </div>
 
+            {/* Action */}
             <div className="radio-group">
+
               <label>
                 <input
                   type="radio"
@@ -90,6 +106,7 @@ function UpdateMembership() {
                 />
                 Cancel Membership
               </label>
+
             </div>
 
             <button className="submit-btn" type="submit">

@@ -1,5 +1,7 @@
 const Book = require("../models/Book");
 const generateSerialNo = require("../utils/generateSerialNo");
+const { toUTCDateOnly } = require("../utils/dateOnly");
+
 
 // Add Book / Movie
 exports.addBook = async (req, res) => {
@@ -16,12 +18,13 @@ exports.addBook = async (req, res) => {
       const serialNo = await generateSerialNo(type);
 
       const book = await Book.create({
-        serialNo,
-        type,
-        name,
-        author,
-        procurementDate
-      });
+  serialNo,
+  type,
+  name,
+  author,
+  procurementDate: toUTCDateOnly(procurementDate)
+});
+
 
       createdBooks.push(book);
     }
@@ -50,7 +53,8 @@ exports.updateBook = async (req, res) => {
     book.type = type;
     book.name = name;
     book.status = status;
-    book.procurementDate = date;
+    book.procurementDate = toUTCDateOnly(date);
+
 
     await book.save();
 

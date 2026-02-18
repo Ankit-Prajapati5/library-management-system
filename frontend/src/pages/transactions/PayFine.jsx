@@ -12,17 +12,30 @@ function PayFine() {
   const [paid, setPaid] = useState(false);
   const [remarks, setRemarks] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  if (!state) return <div className="nodata">No fine data available</div>;
+  if (!state)
+    return (
+      <div>
+        <Navbar />
+        <div className="payfine-page">
+          <div className="payfine-card nodata">
+            No fine data available
+          </div>
+        </div>
+      </div>
+    );
 
   const handleSubmit = async () => {
 
     if (state.fineAmount > 0 && !paid) {
-      setError("Fine must be paid before completing");
+      setError("Please confirm fine payment");
       return;
     }
 
     try {
+      setLoading(true);
+
       await API.post("/transactions/payfine", {
         issueId: state.issueId,
         paid,
@@ -32,7 +45,9 @@ function PayFine() {
       navigate("/transactions");
 
     } catch {
-      setError("Payment failed");
+      setError("Payment failed. Try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,10 +58,12 @@ function PayFine() {
       <div className="payfine-page">
         <div className="payfine-card">
 
-          <h3 className="payfine-title">Pay Fine</h3>
+          <h3 className="payfine-title">Return Confirmation</h3>
 
-          <div className="amount-box">
-            Fine Amount: ₹{state.fineAmount}
+          <div className={`amount-box ${state.fineAmount > 0 ? "due" : "clear"}`}>
+            {state.fineAmount > 0
+              ? <>Fine Payable: <span>₹{state.fineAmount}</span></>
+              : <>No Fine — Book returned on time</>}
           </div>
 
           {error && <p className="error">{error}</p>}
@@ -58,18 +75,24 @@ function PayFine() {
                 checked={paid}
                 onChange={(e)=>setPaid(e.target.checked)}
               />
-              Fine Paid
+              I confirm payment received
             </label>
           )}
 
-          <textarea
-            placeholder="Remarks (optional)"
-            value={remarks}
-            onChange={(e)=>setRemarks(e.target.value)}
-          />
+          <div className="form-group">
+            <textarea
+              placeholder="Remarks (optional)"
+              value={remarks}
+              onChange={(e)=>setRemarks(e.target.value)}
+            />
+          </div>
 
-          <button className="submit-btn" onClick={handleSubmit}>
-            Confirm
+          <button
+            className="submit-btn"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Complete Return"}
           </button>
 
         </div>

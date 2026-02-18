@@ -161,10 +161,14 @@ function AddMembership() {
               <input
                 type="date"
                 required
+                value={form.startDate}
+                placeholder="Start Date"
+                onFocus={(e) => e.target.showPicker?.()}
                 onChange={(e) =>
                   setForm({ ...form, startDate: e.target.value })
                 }
               />
+
               {errors.startDate && <p className="error">{errors.startDate}</p>}
             </div>
 

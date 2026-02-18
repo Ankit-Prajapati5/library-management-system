@@ -104,6 +104,26 @@ img, input, button {
   margin-bottom: 8px;
 }
 
+/* ===== MOBILE DATE PICKER FIX ===== */
+input[type="date"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  position: relative;
+  background: white;
+}
+
+/* show calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  display: block;
+  cursor: pointer;
+}
+
+/* prevent zoom on iPhone */
+input, select, textarea {
+  font-size: 16px;
+}
+
 @media (max-width: 768px) {
   .membership-page {
     padding: 25px 15px;
@@ -123,6 +143,7 @@ img, input, button {
     gap: 12px;
   }
 }
+
 
 @media (max-width: 480px) {
   .membership-page {

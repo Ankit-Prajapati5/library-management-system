@@ -9,11 +9,13 @@ function Availability() {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState("");
 
+  /* ================= SEARCH ================= */
   const handleSearch = async (e) => {
     e.preventDefault();
     setError("");
     setBooks([]);
 
+    // validation only on submit
     if (!form.name && !form.author) {
       setError("Please enter Book Name or Author");
       return;
@@ -39,25 +41,28 @@ function Availability() {
           {error && <p className="error">{error}</p>}
 
           <form className="search-form" onSubmit={handleSearch}>
+
+            {/* NAME */}
             <input
               value={form.name}
               placeholder="Book Name"
-              onChange={(e)=>{
-                if(/^[A-Za-z0-9\s]*$/.test(e.target.value))
-                  setForm({...form,name:e.target.value});
-              }}
+              onChange={(e)=>
+                setForm({...form,name:e.target.value})
+              }
             />
 
+            {/* AUTHOR */}
             <input
               value={form.author}
               placeholder="Author"
-              onChange={(e)=>{
-                if(/^[A-Za-z\s]*$/.test(e.target.value))
-                  setForm({...form,author:e.target.value});
-              }}
+              onChange={(e)=>
+                setForm({...form,author:e.target.value})
+              }
             />
 
-            <button className="search-btn" type="submit">Search</button>
+            <button className="search-btn" type="submit">
+              Search
+            </button>
           </form>
 
           {books.length === 0 && !error && (
@@ -77,7 +82,9 @@ function Availability() {
               <tbody>
                 {books.map(book => (
                   <tr key={book._id}>
-                    <td><input type="radio" name="selectBook" /></td>
+                    <td>
+                      <input type="radio" name="selectBook" />
+                    </td>
                     <td>{book.name}</td>
                     <td>{book.author}</td>
                     <td>{book.serialNo}</td>

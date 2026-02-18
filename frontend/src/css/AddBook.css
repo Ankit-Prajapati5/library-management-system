@@ -1,62 +1,97 @@
+/* ================= RESET ================= */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-img, input, button {
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --border: #dcdfe6;
+  --text: #1e293b;
+  --bg: #f4f7fb;
+  --error: #e11d48;
+  --success: #16a34a;
+}
+
+img, input, button, select, textarea {
   max-width: 100%;
   font-family: inherit;
 }
 
+/* ================= PAGE ================= */
 .book-page {
   min-height: 100vh;
-  background: #f4f7fb;
+  background: var(--bg);
   padding: 40px 20px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* ================= CARD ================= */
 .book-card {
   width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  max-width: 560px;
+  margin: auto;
+  background: #fff;
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.06),
+    0 2px 8px rgba(0,0,0,0.04);
+  transition: transform .2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-2px);
 }
 
 .book-title {
-  margin-bottom: 20px;
-  color: #1e293b;
+  margin-bottom: 22px;
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: .3px;
 }
 
+/* ================= FORM ================= */
 .form-group {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea,
+.form-group select {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #dcdfe6;
+  padding: 13px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
   outline: none;
-  transition: 0.25s;
+  transition: all .2s ease;
   font-size: 16px;
+  background: #fff;
 }
 
-.form-group input:focus {
-  border-color: #4a7dff;
-  box-shadow: 0 0 0 2px rgba(74,125,255,0.15);
+/* Focus */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
 }
 
+/* Active press (mobile feel) */
+.form-group input:active {
+  transform: scale(.995);
+}
+
+/* ================= RADIO ================= */
 .radio-group {
   display: flex;
-  gap: 25px;
-  margin-bottom: 15px;
+  gap: 26px;
+  margin-bottom: 18px;
   flex-wrap: wrap;
 }
 
@@ -65,37 +100,64 @@ img, input, button {
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  user-select: none;
+  padding: 6px 2px;
 }
 
+/* bigger tap area */
+.radio-group input[type="radio"] {
+  transform: scale(1.15);
+  cursor: pointer;
+}
+
+/* ================= BUTTON ================= */
 .submit-btn {
-  margin-top: 20px;
+  margin-top: 22px;
   width: 100%;
-  padding: 13px;
+  padding: 14px;
   border: none;
-  border-radius: 8px;
-  background: #2563eb;
+  border-radius: 10px;
+  background: var(--primary);
   color: white;
   cursor: pointer;
-  transition: 0.25s;
+  transition: all .25s ease;
   font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .3px;
 }
 
 .submit-btn:hover {
-  background: #1d4ed8;
+  background: var(--primary-dark);
 }
 
-.message { margin-bottom: 12px; }
-.success { color: green; }
-.error { color: #e11d48; font-size: 13px; }
+.submit-btn:active {
+  transform: scale(.98);
+}
 
+/* ================= MESSAGES ================= */
+.message { margin-bottom: 12px; }
+
+.success {
+  color: var(--success);
+  font-weight: 500;
+}
+
+.error {
+  color: var(--error);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
+
   .book-page {
-    padding: 25px 15px;
+    padding: 25px 14px;
   }
 
   .book-card {
-    padding: 22px;
-    border-radius: 10px;
+    padding: 24px;
+    border-radius: 12px;
   }
 
   .book-title {
@@ -109,21 +171,21 @@ img, input, button {
 }
 
 @media (max-width: 480px) {
+
   .book-page {
-    padding: 15px 10px;
+    padding: 12px;
     align-items: flex-start;
   }
 
   .book-card {
-    padding: 18px;
-    border-radius: 8px;
-    box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 14px rgba(0,0,0,.06);
   }
 
   .book-title {
     font-size: 20px;
-    text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
   }
 
   .radio-group {
@@ -132,14 +194,15 @@ img, input, button {
   }
 
   .submit-btn {
-    padding: 13px;
-    font-size: 15px;
+    padding: 15px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 360px) {
+
   .book-card {
-    padding: 15px;
+    padding: 16px;
   }
 
   .book-title {
@@ -148,6 +211,29 @@ img, input, button {
 
   .submit-btn {
     font-size: 14px;
-    padding: 12px;
   }
+}
+
+/* ================= MOBILE INPUT FIXES ================= */
+
+/* prevent iOS zoom */
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* show calendar icon */
+input[type="date"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  background: #fff;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* numeric keyboard friendly */
+input[inputmode="numeric"] {
+  letter-spacing: 1px;
 }

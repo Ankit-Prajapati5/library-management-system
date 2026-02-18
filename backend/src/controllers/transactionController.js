@@ -2,20 +2,20 @@ const Book = require("../models/Book");
 const Issue = require("../models/Issue");
 const Fine = require("../models/Fine");
 const Membership = require("../models/Membership");
+const { toUTCDateOnly } = require("../utils/dateOnly");
 
-
-// 1️⃣ Book Availability
+// Book Availability
 exports.checkAvailability = async (req, res) => {
   const { name, author } = req.body;
 
   if (!name && !author) {
     return res.status(400).json({
-      message: "Please select Book Name or Author"
+      message: "Please select Book Name or Author",
     });
   }
 
   const query = {
-    status: "available"
+    status: "available",
   };
 
   if (name) query.name = name;
@@ -26,8 +26,7 @@ exports.checkAvailability = async (req, res) => {
   res.json(books);
 };
 
-
-// 2️⃣ Issue Book
+// Issue Book
 exports.issueBook = async (req, res) => {
   const { membershipId, serialNo, issueDate } = req.body;
 
@@ -36,34 +35,50 @@ exports.issueBook = async (req, res) => {
   }
 
   const membership = await Membership.findOne({ membershipId });
-
   if (!membership || membership.status !== "active") {
     return res.status(400).json({ message: "Invalid membership" });
   }
 
-  const book = await Book.findOne({ serialNo });
+  // 🔥 NEW RULE: max 5 books
+  const activeIssues = await Issue.countDocuments({
+    membershipId,
+    status: "active",
+  });
 
+  if (activeIssues >= 5) {
+    return res.status(400).json({
+      message: "Issue limit reached (max 5 books allowed)",
+    });
+  }
+
+  const book = await Book.findOne({ serialNo });
   if (!book || book.status !== "available") {
     return res.status(400).json({ message: "Book not available" });
   }
 
-  const today = new Date();
-  const issue = new Date(issueDate);
+  // timezone safe date
+  const issueUTC = toUTCDateOnly(issueDate);
 
-  if (issue < today.setHours(0,0,0,0)) {
-    return res.status(400).json({ message: "Issue date cannot be before today" });
+  // today date compare
+  const todayUTC = toUTCDateOnly(new Date().toISOString().split("T")[0]);
+
+  if (issueUTC < todayUTC) {
+    return res
+      .status(400)
+      .json({ message: "Issue date cannot be before today" });
   }
 
-  const dueDate = new Date(issueDate);
-  dueDate.setDate(dueDate.getDate() + 15);
+  // due date = +15 days (UTC safe)
+  const dueDate = new Date(issueUTC);
+  dueDate.setUTCDate(dueDate.getUTCDate() + 15);
 
   const newIssue = await Issue.create({
     membershipId,
     bookSerialNo: serialNo,
     bookName: book.name,
     author: book.author,
-    issueDate,
-    dueDate
+    issueDate: issueUTC,
+    dueDate,
   });
 
   book.status = "issued";
@@ -72,8 +87,7 @@ exports.issueBook = async (req, res) => {
   res.status(201).json(newIssue);
 };
 
-
-// 3️⃣ Return Book
+// Return Book
 exports.returnBook = async (req, res) => {
   const { serialNo, returnDate } = req.body;
 
@@ -83,43 +97,46 @@ exports.returnBook = async (req, res) => {
 
   const issue = await Issue.findOne({
     bookSerialNo: serialNo,
-    status: "active"
+    status: "active",
   });
 
   if (!issue) {
     return res.status(404).json({ message: "Active issue not found" });
   }
 
-  const actualReturn = new Date(returnDate);
+  // timezone safe return date
+  const actualReturn = toUTCDateOnly(returnDate);
   issue.returnDate = actualReturn;
 
-  const due = new Date(issue.dueDate);
+  const due = issue.dueDate;
 
   let fine = 0;
 
   if (actualReturn > due) {
-    const diff = Math.ceil((actualReturn - due) / (1000 * 60 * 60 * 24));
-    fine = diff * 10;
+    // correct day difference calculation
+    const diffDays = Math.floor(
+      (actualReturn.getTime() - due.getTime()) / (1000 * 60 * 60 * 24),
+    );
+
+    fine = diffDays * 10;
   }
 
   issue.fineCalculated = fine;
-
   await issue.save();
 
   const fineRecord = await Fine.create({
     issueId: issue._id,
-    amount: fine
+    amount: fine,
   });
 
   res.json({
     message: "Proceed to fine payment",
     fineAmount: fine,
-    issueId: issue._id
+    issueId: issue._id,
   });
 };
 
-
-// 4️⃣ Pay Fine
+// Pay Fine
 exports.payFine = async (req, res) => {
   const { issueId, paid, remarks } = req.body;
 
@@ -131,12 +148,12 @@ exports.payFine = async (req, res) => {
 
   if (fine.amount > 0 && !paid) {
     return res.status(400).json({
-      message: "Fine must be paid before completing return"
+      message: "Fine must be paid before completing return",
     });
   }
 
   fine.paid = true;
-  fine.paidDate = new Date();
+  fine.paidDate = toUTCDateOnly(new Date().toISOString().split("T")[0]);
   fine.remarks = remarks;
 
   await fine.save();
@@ -150,4 +167,38 @@ exports.payFine = async (req, res) => {
   await book.save();
 
   res.json({ message: "Book returned successfully" });
+};
+
+// 5️⃣ Preview Fine
+exports.previewFine = async (req, res) => {
+  const { serialNo, returnDate } = req.body;
+
+  if (!serialNo)
+    return res.status(400).json({ message: "Serial required" });
+
+  const issue = await Issue.findOne({
+    bookSerialNo: serialNo,
+    status: "active"
+  });
+
+  if (!issue)
+    return res.status(404).json({ message: "Active issue not found" });
+
+  const actualReturn = returnDate
+    ? new Date(returnDate)
+    : new Date();
+
+  const due = new Date(issue.dueDate);
+
+  let fine = 0;
+
+  if (actualReturn > due) {
+    const diffDays = Math.floor((actualReturn - due) / (1000*60*60*24));
+    fine = diffDays * 10;
+  }
+
+  res.json({
+    fine,
+    dueDate: issue.dueDate
+  });
 };
