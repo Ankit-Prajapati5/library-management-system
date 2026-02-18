@@ -29,7 +29,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.options("*", cors());   // ⭐ FIX FOR PREFLIGHT
+app.options(/.*/, cors());
 
 app.use(express.json());
 
