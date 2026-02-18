@@ -13,23 +13,15 @@ const app = express();
 
 connectDB();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://managelibrary.vercel.app"
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS not allowed"));
-    }
-  },
+  origin: ["http://localhost:5173", "https://managelibrary.vercel.app"],
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization"],
   credentials: true
 }));
 
 app.options(/.*/, cors());
+
 
 app.use(express.json());
 
