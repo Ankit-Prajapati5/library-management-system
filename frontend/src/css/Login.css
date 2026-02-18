@@ -119,3 +119,26 @@ img, input, button {
     padding: 12px;
   }
 }
+
+/* Spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #fff;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Disabled Button look */
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

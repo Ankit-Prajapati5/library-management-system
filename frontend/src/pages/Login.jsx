@@ -5,18 +5,22 @@ import { AuthContext } from "../context/AuthContext";
 import "../css/Login.css";
 
 function Login() {
+
   const [form, setForm] = useState({
     email: "",
     password: ""
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // ⭐ NEW STATE
+
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true); // ⭐ Spinner start
 
     try {
       const { data } = await API.post("/auth/login", form);
@@ -24,6 +28,8 @@ function Login() {
       navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false); // ⭐ Spinner stop
     }
   };
 
@@ -35,10 +41,12 @@ function Login() {
         {error && <p className="error">{error}</p>}
 
         <form onSubmit={handleSubmit}>
+
           <input
             type="email"
             placeholder="Email"
             required
+            disabled={loading}
             onChange={(e) =>
               setForm({ ...form, email: e.target.value })
             }
@@ -48,12 +56,16 @@ function Login() {
             type="password"
             placeholder="Password"
             required
+            disabled={loading}
             onChange={(e) =>
               setForm({ ...form, password: e.target.value })
             }
           />
 
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? <div className="spinner"></div> : "Login"}
+          </button>
+
         </form>
 
         <p className="switch-auth">

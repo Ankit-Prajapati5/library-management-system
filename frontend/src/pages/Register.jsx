@@ -4,6 +4,7 @@ import API from "../api/axios";
 import "../css/Login.css";
 
 function Register() {
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -11,18 +12,23 @@ function Register() {
   });
 
   const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false); // ⭐ NEW
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMsg("");
+    setLoading(true); // ⭐ start spinner
 
     try {
       const res = await API.post("/auth/register", form);
       setMsg(res.data.message);
+
       setTimeout(() => navigate("/"), 1500);
     } catch (err) {
       setMsg(err.response?.data?.message || "Error");
+    } finally {
+      setLoading(false); // ⭐ stop spinner
     }
   };
 
@@ -34,10 +40,12 @@ function Register() {
         {msg && <p className="error">{msg}</p>}
 
         <form onSubmit={handleSubmit}>
+
           <input
             type="text"
             placeholder="Full Name"
             required
+            disabled={loading}
             onChange={(e)=>setForm({...form,name:e.target.value})}
           />
 
@@ -45,6 +53,7 @@ function Register() {
             type="email"
             placeholder="Email"
             required
+            disabled={loading}
             onChange={(e)=>setForm({...form,email:e.target.value})}
           />
 
@@ -52,10 +61,14 @@ function Register() {
             type="password"
             placeholder="Password"
             required
+            disabled={loading}
             onChange={(e)=>setForm({...form,password:e.target.value})}
           />
 
-          <button type="submit">Create Account</button>
+          <button type="submit" disabled={loading}>
+            {loading ? <div className="spinner"></div> : "Create Account"}
+          </button>
+
         </form>
 
         <p className="switch-auth">
