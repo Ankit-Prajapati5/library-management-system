@@ -1,0 +1,82 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  min-width: 650px;
+}
+
+.custom-table th {
+  background: #f1f5ff;
+  color: #1e293b;
+  text-align: left;
+  padding: 12px;
+  position: sticky;
+  top: 0;
+  font-weight: 600;
+}
+
+.custom-table td {
+  padding: 11px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  max-width: 220px;
+  word-wrap: break-word;
+}
+
+.custom-table tr:hover {
+  background: #f9fbff;
+}
+
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #555;
+}
+
+.card-list {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.data-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.data-card p {
+  margin: 6px 0;
+}
+
+@media (max-width: 768px) {
+  .custom-table {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .table-wrapper {
+    display: none;
+  }
+
+  .card-list {
+    display: flex;
+  }
+}

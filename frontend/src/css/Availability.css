@@ -1,0 +1,149 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img, input, button {
+  max-width: 100%;
+  font-family: inherit;
+}
+
+.availability-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 40px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.availability-card {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.title {
+  margin-bottom: 15px;
+  color: #1e293b;
+}
+
+.search-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.search-form input {
+  flex: 1;
+  min-width: 180px;
+  padding: 11px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-form input:focus {
+  border-color: #4a7dff;
+  box-shadow: 0 0 0 2px rgba(74,125,255,0.15);
+}
+
+.search-btn {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.search-btn:hover { background: #1d4ed8; }
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.table th {
+  background: #f1f5ff;
+}
+
+.table tr:hover {
+  background: #f9fbff;
+}
+
+.error { color: #e11d48; margin-bottom: 10px; }
+.empty { text-align: center; color: #555; margin-top: 15px; }
+
+@media (max-width: 768px) {
+  .availability-page {
+    padding: 25px 15px;
+  }
+
+  .availability-card {
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .availability-page {
+    padding: 15px 10px;
+    align-items: flex-start;
+  }
+
+  .availability-card {
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+  }
+
+  .search-form {
+    flex-direction: column;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .availability-card {
+    padding: 14px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}

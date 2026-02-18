@@ -1,0 +1,138 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img, input, button, select {
+  max-width: 100%;
+  font-family: inherit;
+}
+
+.updatebook-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 40px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.updatebook-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.updatebook-title {
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  outline: none;
+  transition: 0.25s;
+  font-size: 16px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #4a7dff;
+  box-shadow: 0 0 0 2px rgba(74,125,255,0.15);
+}
+
+.radio-group {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+.success { color: green; }
+.error { color: #e11d48; font-size: 13px; }
+
+@media (max-width: 768px) {
+  .updatebook-page {
+    padding: 25px 15px;
+  }
+
+  .updatebook-card {
+    padding: 22px;
+    border-radius: 10px;
+  }
+
+  .updatebook-title {
+    text-align: center;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .updatebook-page {
+    padding: 15px 10px;
+    align-items: flex-start;
+  }
+
+  .updatebook-card {
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+  }
+
+  .updatebook-title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .updatebook-card {
+    padding: 15px;
+  }
+
+  .updatebook-title {
+    font-size: 18px;
+  }
+}

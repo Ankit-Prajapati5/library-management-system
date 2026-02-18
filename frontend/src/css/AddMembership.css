@@ -1,0 +1,176 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img, input, button {
+  max-width: 100%;
+  font-family: inherit;
+}
+
+.membership-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 40px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.membership-card {
+  width: 100%;
+  max-width: 650px;
+  margin: 20px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.membership-title {
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-grid input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  outline: none;
+  transition: 0.25s;
+  font-size: 16px;
+}
+
+.form-grid input:focus {
+  border-color: #4a7dff;
+  box-shadow: 0 0 0 2px rgba(74,125,255,0.15);
+}
+
+.full {
+  grid-column: span 2;
+}
+
+.radio-group {
+  margin-top: 15px;
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.radio-group label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submit-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+.message {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.success { color: green; }
+
+.error {
+  color: #e11d48;
+  font-size: 13px;
+  margin-top: -8px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .membership-page {
+    padding: 25px 15px;
+  }
+
+  .membership-card {
+    padding: 22px;
+    border-radius: 10px;
+  }
+
+  .membership-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .form-grid {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .membership-page {
+    padding: 15px 10px;
+    align-items: flex-start;
+  }
+
+  .membership-card {
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+  }
+
+  .membership-title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: span 1;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .submit-btn {
+    padding: 13px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .membership-card {
+    padding: 15px;
+  }
+
+  .membership-title {
+    font-size: 18px;
+  }
+
+  .submit-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

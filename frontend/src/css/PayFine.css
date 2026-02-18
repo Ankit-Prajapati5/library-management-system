@@ -1,0 +1,131 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img, input, button, textarea {
+  max-width: 100%;
+  font-family: inherit;
+}
+
+.payfine-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 40px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.payfine-card {
+  width: 100%;
+  max-width: 520px;
+  margin: 20px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.payfine-title {
+  margin-bottom: 18px;
+  color: #1e293b;
+}
+
+.amount-box {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #9a3412;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  outline: none;
+  transition: 0.25s;
+  font-size: 16px;
+}
+
+textarea:focus {
+  border-color: #4a7dff;
+  box-shadow: 0 0 0 2px rgba(74,125,255,0.15);
+}
+
+.submit-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #16a34a;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.submit-btn:hover { background: #15803d; }
+
+.error { color: #e11d48; font-size: 13px; margin-bottom: 10px; }
+.nodata { padding: 20px; text-align: center; }
+
+@media (max-width: 768px) {
+  .payfine-page {
+    padding: 25px 15px;
+  }
+
+  .payfine-card {
+    padding: 22px;
+    border-radius: 10px;
+  }
+
+  .payfine-title {
+    text-align: center;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .payfine-page {
+    padding: 15px 10px;
+    align-items: flex-start;
+  }
+
+  .payfine-card {
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+  }
+
+  .payfine-title {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .payfine-card {
+    padding: 15px;
+  }
+
+  .payfine-title {
+    font-size: 18px;
+  }
+}

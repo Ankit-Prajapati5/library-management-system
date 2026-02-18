@@ -1,0 +1,153 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img, input, button {
+  max-width: 100%;
+  font-family: inherit;
+}
+
+.book-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 40px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.book-title {
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  outline: none;
+  transition: 0.25s;
+  font-size: 16px;
+}
+
+.form-group input:focus {
+  border-color: #4a7dff;
+  box-shadow: 0 0 0 2px rgba(74,125,255,0.15);
+}
+
+.radio-group {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s;
+  font-size: 15px;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+.message { margin-bottom: 12px; }
+.success { color: green; }
+.error { color: #e11d48; font-size: 13px; }
+
+@media (max-width: 768px) {
+  .book-page {
+    padding: 25px 15px;
+  }
+
+  .book-card {
+    padding: 22px;
+    border-radius: 10px;
+  }
+
+  .book-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .radio-group {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-page {
+    padding: 15px 10px;
+    align-items: flex-start;
+  }
+
+  .book-card {
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+  }
+
+  .book-title {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .submit-btn {
+    padding: 13px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .book-card {
+    padding: 15px;
+  }
+
+  .book-title {
+    font-size: 18px;
+  }
+
+  .submit-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

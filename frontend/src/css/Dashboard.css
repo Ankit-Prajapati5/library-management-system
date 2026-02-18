@@ -1,0 +1,134 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img, input, button {
+  max-width: 100%;
+  font-family: inherit;
+}
+
+.dashboard {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 40px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.welcome {
+  margin-bottom: 25px;
+}
+
+.role {
+  color: #555;
+  margin-top: 5px;
+}
+
+.section-title {
+  margin: 30px 0 15px;
+  color: #1e293b;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.feature-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: 0.25s;
+  border: 1px solid transparent;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  border-color: #60a5fa;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+  color: #2563eb;
+}
+
+.feature-card h4 {
+  margin: 0;
+}
+
+.logout-btn {
+  margin-top: 40px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  background: #ef4444;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 30px 15px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .welcome {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 20px 10px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .feature-card {
+    padding: 18px;
+    border-radius: 10px;
+  }
+  .feature-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+  .logout-btn {
+    width: 100%;
+    padding: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .feature-card {
+    padding: 15px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+}
+
+
