@@ -13,8 +13,21 @@ const app = express();
 
 connectDB();
 
+const cors = require("cors");
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://managelibrary.vercel.app"
+];
+
 app.use(cors({
-  origin: "https://managelibraryvercel.app",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
   credentials: true
 }));
 
