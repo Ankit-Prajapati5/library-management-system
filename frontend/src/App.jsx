@@ -29,7 +29,6 @@ function App() {
       {/* Public */}
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/payfine" element={<PayFine />} />
 
       {/* Protected */}
       <Route element={<ProtectedRoute />}>
